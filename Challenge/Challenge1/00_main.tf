@@ -61,7 +61,7 @@ resource "azurerm_public_ip" "windows-vm-ip" {
   
 }
 
-resource "azurerm_network_interface" "example" {
+resource "azurerm_network_interface" "example1" {
   name                = "public-nic"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
@@ -70,7 +70,7 @@ resource "azurerm_network_interface" "example" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.example.id
     private_ip_address_allocation = "Dynamic"
-	public_ip_address_id          = azurerm_public_ip.windows-vm-ip.id
+    public_ip_address_id          = azurerm_public_ip.windows-vm-ip.id
   }
 }
 
@@ -90,7 +90,7 @@ resource "azurerm_windows_virtual_machine" "frontend" {
   admin_username      = "adminuser"
   admin_password      = random_password.vmpassword.result
   network_interface_ids = [
-    azurerm_network_interface.example.id,
+    azurerm_network_interface.example1.id,
   ]
 
   os_disk {
